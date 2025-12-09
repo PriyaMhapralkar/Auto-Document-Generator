@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Saved Data Preview</title>
+
+<style>
+body{
+    font-family:"Times New Roman", Times, serif;
+    background:#f0f2f5;
+    margin:0;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+}
+
+.container{
+    background:#fff;
+    padding:30px;
+    width:90%;
+    max-width:800px;
+    border-radius:8px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    text-align:center;
+}
+
+.preview{
+    margin-top:20px;
+    padding:20px;
+    border:1px solid #ddd;
+    white-space:pre-wrap;
+    line-height:1.5;
+    text-align:left;
+}
+
+.preview p{
+    margin-bottom: 1.2em;   /* paragraph spacing */
+}
+
+.preview br{
+    line-height: 1.5;       /* spacing for <br> */
+}
+
+button{
+    margin:10px 5px;
+    padding:10px 20px;
+    background:#28a745;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+button:hover{ background:#218838; }
+
+a{display:block; margin-top:10px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h2>Recently Saved Data</h2>
+  <p id="loadingTxt">Loading...</p>
+  <p id="errorTxt" style="color:red;"></p>
+
+  <div id="previewArea"></div>
+
+  <button id="pdfBtn">Download PDF</button>
+  <button id="docBtn">Download DOC</button>
+  <a href="/profile.html">Back to Profile</a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+let template = "";
+let storedValues = {};
+
+const headers = [
+  "Timestamp","User Email","Date",
+  "Company Name A","LLPIN","Address A",
+  "Company Name B","CIN","Address B",
+  "CA FIRM NAME","CA NAME","MEMBER REG NO","PARTNER/PROPRIETOR"
+];
+
+async function loadTemplate() {
+  try {
+    const res = await fetch('/sample.txt');
+    template = await res.text();
+  } catch {
+    document.getElementById("errorTxt").innerText = "Template not found.";
+  }
+}
+
+function formatDateOnly(val) {
+  if (!val) return "";
+
+  if (typeof val === 'string') {
+    const match = val.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (match) return match[0];
+    return val;
+  }
+
+  if (val instanceof Date) {
+    const y = val.getFullYear();
+    const m = String(val.getMonth() + 1).padStart(2, '0');
+    const d = String(val.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  return val.toString();
+}
+
+function fillTemplate(template, data) {
+  let result = template;
+
+    const normalizedData = {
+    "Timestamp": data["Timestamp"] || data["timestamp"] || "",
+    "User Email": data["User Email"] || data["userEmail"] || "",
+    "Date": formatDateOnly(data["Date"] || data["date"]),
+    "Company Name A": data["Company Name A"] || data["companyNameA"] || "",
+    "LLPIN": data["LLPIN"] || data["llpin"] || "",
+    "Address A": data["Address A"] || data["addressA"] || "",
+    "Company Name B": data["Company Name B"] || data["companyNameB"] || "",
+    "CIN": data["CIN"] || data["cin"] || "",
+    "Address B": data["Address B"] || data["addressB"] || "",
+   "CA FIRM NAME": data["CA Firm Name"] || data["caFirmName"] || "",
+"CA NAME": data["CA Name"] || data["caName"] || "",
+"MEMBER REG NO": data["Member Reg No"] || data["memberRegNo"] || "",
+"PARTNER/PROPRIETOR": data["Partner/Proprietor"] || data["partnerProprietor"] || ""
+  };
+
+  headers.forEach(h => {
+    const value = normalizedData[h] || "";
+    storedValues[h] = value;
+    const regex = new RegExp(`{{\\s*${h}\\s*}}`, "gi");
+
+    if (regex.test(result)) {
+      result = result.replace(regex, `<strong>${value}</strong>`);
+    }
+  });
+
+  return result;
+}
+
+async function showData(){
+  await loadTemplate();
+
+  try{
+    const res = await fetch('/api/get-last-excel-entry');
+    const data = await res.json();
+
+    if(!data.row){
+      document.getElementById('errorTxt').innerText = "No data found.";
+      return;
+    }
+
+    const html = fillTemplate(template, data.row);
+
+    const box = document.createElement("div");
+    box.className = "preview";
+    box.innerHTML = html;
+
+    document.getElementById("previewArea").appendChild(box);
+    document.getElementById("loadingTxt").style.display = "none";
+
+  } catch(err){
+    document.getElementById("errorTxt").innerText = "Could not load data.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", showData);
+
+function tokenizeLine(line, lineBold, dataValues){
+  let segments = [];
+
+  const values = Object.values(dataValues)
+    .filter(v => v && line.includes(v))
+    .map(v => v.replace(/([.*+?^=!:${}()|\[\]\/\\])/g,"\\$1"));
+
+  if(values.length === 0){
+    line.split(/(\s+)/).forEach(w=>{
+      if(w) segments.push({text:w, bold:lineBold});
+    });
+    return segments;
+  }
+
+  const regex = new RegExp("(" + values.join("|") + ")", "g");
+  let last = 0, match;
+
+  while((match = regex.exec(line)) !== null){
+    if(match.index > last){
+      line.substring(last, match.index).split(/(\s+)/)
+      .forEach(w=> w && segments.push({text:w, bold:lineBold}));
+    }
+
+    match[0].split(/(\s+)/)
+    .forEach(w=> w && segments.push({text:w, bold:true}));
+
+    last = regex.lastIndex;
+  }
+
+  if(last < line.length){
+    line.substring(last).split(/(\s+)/)
+    .forEach(w=> w && segments.push({text:w, bold:lineBold}));
+  }
+
+  return segments;
+}
+
+function wrapSegments(tokens, maxWidth, doc, fontSize, scale){
+  let finalLines = [], current = [], currentW = 0;
+
+  for(let t of tokens){
+    doc.setFont("Times", t.bold ? "bold" : "normal");
+    const w = doc.getStringUnitWidth(t.text) * fontSize / scale;
+
+    if(currentW + w <= maxWidth){
+      current.push(t);
+      currentW += w;
+    } else {
+      while(current.length && /\s+/.test(current[current.length-1].text)) current.pop();
+      if(current.length) finalLines.push(current);
+
+      current = /\s+/.test(t.text) ? [] : [t];
+      currentW = /\s+/.test(t.text) ? 0 : w;
+    }
+  }
+
+  while(current.length && /\s+/.test(current[current.length-1].text)) current.pop();
+  if(current.length) finalLines.push(current);
+
+  return finalLines;
+}
+
+function justifyLine(tokens, maxWidth, doc, fontSize, scale) {
+  if (tokens.length <= 1) return tokens;
+
+  let totalWidth = 0;
+  let spaceCount = 0;
+  tokens.forEach(t => {
+    doc.setFont("Times", t.bold ? "bold" : "normal");
+    totalWidth += doc.getStringUnitWidth(t.text) * fontSize / scale;
+    if (/\s+/.test(t.text)) spaceCount++;
+  });
+
+  if (spaceCount === 0 || totalWidth >= maxWidth) return tokens;
+
+  const extraSpace = (maxWidth - totalWidth) / spaceCount;
+  const adjustedTokens = [];
+  tokens.forEach(t => {
+    adjustedTokens.push(t);
+    if (/\s+/.test(t.text)) {
+      adjustedTokens.push({ text: '', bold: false, extraWidth: extraSpace });
+    }
+  });
+
+  return adjustedTokens;
+}
+
+document.getElementById("pdfBtn").onclick = () => {
+
+  const content = document.querySelector(".preview");
+  if(!content) return alert("No content");
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("p","mm","a4");
+
+  const pageW = doc.internal.pageSize.width;
+  const pageH = doc.internal.pageSize.height;
+
+  const margin = 20;
+  const contentW = pageW - margin * 2;
+
+  let y = margin;
+
+  const fontSize = 11;
+  const lineHeight = 7.5;
+  const scale = doc.internal.scaleFactor;
+
+  doc.setFont("Times","normal");
+  doc.setFontSize(fontSize);
+
+  function extractStyledLines(element) {
+    let lines = [];
+    let currentLine = [];
+    let currentBold = false;
+    let currentCenter = false;
+
+    function traverse(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent;
+        const parts = text.split('\n');
+        for (let i = 0; i < parts.length; i++) {
+          if (i > 0) {
+            lines.push({ tokens: currentLine, center: currentCenter });
+            currentLine = [];
+          }
+          if (parts[i]) {
+            parts[i].split(/(\s+)/).forEach(w => {
+              if (w) currentLine.push({ text: w, bold: currentBold });
+            });
+          }
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const tag = node.tagName.toLowerCase();
+        let newBold = currentBold;
+        let newCenter = currentCenter;
+        if (tag === 'strong' || tag === 'b') {
+          newBold = true;
+        } else if (tag === 'h3') {
+          newBold = true;
+          newCenter = true;
+        }
+        const prevBold = currentBold;
+        const prevCenter = currentCenter;
+        currentBold = newBold;
+        currentCenter = newCenter;
+        for (let child of node.childNodes) {
+          traverse(child);
+        }
+        if (tag === 'h3' && currentLine.length) {
+          lines.push({ tokens: currentLine, center: true });
+          currentLine = [];
+        }
+        currentBold = prevBold;
+        currentCenter = prevCenter;
+      }
+    }
+
+    traverse(element);
+    if (currentLine.length) lines.push({ tokens: currentLine, center: currentCenter });
+    return lines;
+  }
+
+  const styledLines = extractStyledLines(content);
+
+  for (let styledLine of styledLines) {
+    if (!styledLine.tokens.length) {
+      y += 4;
+      continue;
+    }
+
+    if (y + lineHeight > pageH - margin) {
+      doc.addPage();
+      y = margin;
+    }
+
+    if (styledLine.center) {
+      doc.setFontSize(14);
+      doc.setFont("Times", "bold");
+      const lineText = styledLine.tokens.map(t => t.text).join('');
+      const parts = doc.splitTextToSize(lineText, contentW);
+      parts.forEach(p => {
+        if (y + 9 > pageH - margin) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(p, pageW / 2, y, { align: "center" });
+        y += 9;
+      });
+      doc.setFontSize(fontSize);
+    } else {
+      const wrapped = wrapSegments(styledLine.tokens, contentW, doc, fontSize, scale);
+
+      wrapped.forEach(lineTokens => {
+        if (y + lineHeight > pageH - margin) {
+          doc.addPage();
+          y = margin;
+        }
+
+        let x = margin;
+        for (let t of lineTokens) {
+          doc.setFont("Times", t.bold ? "bold" : "normal");
+          doc.text(t.text, x, y);
+          x += doc.getStringUnitWidth(t.text) * fontSize / scale + (t.extraWidth || 0);
+        }
+        y += lineHeight;
+      });
+    }
+  }
+
+  doc.save("saved-data.pdf");
+};
+
+document.getElementById("docBtn").onclick = () => {
+
+  const content = document.querySelector(".preview");
+  if(!content) return alert("No content");
+
+  const styles = `
+    <style>
+      body { font-family: "Times New Roman", Times, serif; }
+      .preview { white-space: pre-wrap; line-height: 1.6; text-align: left; }
+      strong, b { font-weight: bold; }
+      h3 { font-size: 1.17em; font-weight: bold; margin: 1em 0; text-align: center; }
+    </style>
+  `;
+
+  let htmlContent = content.innerHTML.replace(/\n/g, '<br>');
+
+  const html = `<html><head>${styles}</head><body><div class="preview">${htmlContent}</div></body></html>`;
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "saved-data.doc";
+  link.click();
+};
+
+</script>
+</body>
+</html>

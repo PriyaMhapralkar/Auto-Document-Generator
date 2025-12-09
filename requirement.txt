@@ -1,0 +1,6 @@
+express
+passport
+passport-google-oauth20
+express-session
+dotenv
+

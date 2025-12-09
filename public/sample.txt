@@ -1,0 +1,125 @@
+<h3 style="text-align: center;">NON-DISCLOSURE AGREEMENT</h3>
+
+This <strong>NON-DISCLOSURE AGREEMENT (“Agreement”)</strong> is made and entered into on {{Date}} (<strong>“Effective Date”</strong>) at Mumbai, Maharashtra.
+
+<h3 style="text-align: center;">BY AND BETWEEN</h3>
+{{Company Name A}} , a company incorporated under the Companies Act, 2013, having its Identification Number as {{LLPIN}}, and having its registered communication office at {{Address A}}, (hereinafter referred to as <strong>"Party A"</strong>, which expression shall, unless repugnant to the context or meaning thereof, be deemed to include its affiliates, subsidiaries, and representatives);
+<h3 style="text-align: center;">&</h3>
+{{Company Name B}}, a company incorporated under the Companies Act, 2013, bearing Corporate Identification Number (CIN: {{CIN}}), having its registered office at {{Address B}} (hereinafter referred to as <strong>"Party B"</strong>, which expression shall, unless repugnant to the context or meaning thereof, be deemed to include its affiliates, subsidiaries, and representatives);
+
+<strong>Party A</strong> and <strong>Party B</strong> shall be referred to collectively as the <strong>“Parties”</strong> and individually as a <strong>“Party”</strong>.
+
+<strong>WHEREAS:</strong>
+  A.	Both parties acknowledge that, in connection with a potential business relationship and related discussions, each party may disclose to and receive from the other certain non-public, confidential, and proprietary information;
+  B.	Both parties desire to protect the confidentiality of such information and agree to receive and maintain such information in strict confidence;
+  C.	Each party shall act both as a <strong>Disclosing Party</strong> and a <strong>Receiving Party</strong>, as applicable, with respect to the exchange of Confidential Information under this Agreement;
+  D.	<strong>NOW, THEREFORE,</strong> in consideration of the mutual covenants and promises contained herein, and intending to be legally bound, the parties agree as follows:
+
+<strong>1. DEFINITIONS</strong>
+
+  a)	<strong>"Affiliate"</strong> means any legal entity that, at the time of disclosure of any Confidential Information, is directly or indirectly controlling, controlled by, or under common control with either of the Parties.
+  b)	<strong>"Agreement"</strong> means this Non-Disclosure Agreement, including all annexures, as may be amended from time to time by mutual written consent of the Parties.
+  c)	<strong>"Confidential Information"</strong> means any and all information of a confidential, proprietary, or sensitive nature disclosed or made available by the “Disclosing Party” to the “Receiving Party”, whether orally, visually, in writing, electronically, or by any other means, and whether before or after the Effective Date of this Agreement, including without limitation:
+ i.	Any information that is marked or stated as "confidential", or which a reasonable person would consider confidential in the context of its disclosure.
+ ii.	All information exchanged between the Parties in connection with any discussions or activities of a business nature, including proposed projects, negotiations, or commercial dealings, shall be treated as Confidential Information.
+ iii.	Information relating to a Party or its Affiliates’ business, operations, customers, employees, finances, including but not limited to:
+•	(a) marketing data, customer names and lists, pricing information, sales figures, market share data, research findings, surveys, and advertising materials;
+•	(b) product and service information, including technical know-how, software (including source code or proprietary logic), tools, and systems;
+•	(c) strategies, forecasts, financial models, commercial plans, and any future projects or proposals.
+ iv.	Any analyses, reports, studies, notes, compilations, forecasts, presentations, summaries, or other materials prepared by or for the Receiving Party or its advisors that are derived from, contain, or reflect Confidential Information.
+ v.	Any information provided in physical, verbal, visual, electronic, digital, magnetic, or other form, including by fax, email, documents, or online transmission.
+ vi.	All documents, files, or materials provided by or on behalf of the Disclosing Party, regardless of whether they are explicitly marked as confidential or proprietary.
+ vii.	The existence, terms, and conditions of this Agreement and any discussions or negotiations regarding the Purpose, including the status or termination of those discussions.
+
+<strong>Confidential Information shall not include any information that:</strong>
+
+ i. was publicly available at the time of disclosure by the Disclosing Party under this Agreement;
+ ii. becomes publicly available after disclosure under this Agreement, other than through a breach of this Agreement by the Receiving Party or its Representatives;
+ iii. was lawfully in the possession of the Receiving Party prior to such disclosure, as evidenced by written records or other reasonable proof, and was not subject to any existing obligation of confidentiality;
+ iv. becomes available to the Receiving Party from a third party, provided that such third party is not under any legal or contractual obligation of confidentiality with respect to such information;
+ v. is independently developed by the Receiving Party without reference to or use of the Confidential Information disclosed under this Agreement, as can be demonstrated by written documentation or other reasonable evidence
+  d)	<strong>"Disclosing Party"</strong> means the Party disclosing Confidential Information under this Agreement.
+  e)	<strong>“Effective Date”</strong> means the date of execution of this Agreement.
+  f)	<strong>“Receiving Party/Recipient”</strong> means the Party receiving Confidential Information under this Agreement by the Disclosing Party.
+  g)	<strong>"Representatives”</strong> means in relation to a Party, its directors, board members, officers, employees, Affiliates and professional advisors/consultants, (as may be relevant) whoever may have access to the information disclosed for the Purpose.
+
+<strong>2. USE OF CONFIDENTIAL INFORMATION</strong>
+
+The Receiving Party agrees that, during the term of this Agreement, it shall use the Confidential Information solely for the business purpose agreed between the Parties and only to the extent necessary to fulfill such purpose. The Receiving Party shall restrict disclosure of the Confidential Information to its Affiliates and Representatives strictly on a need-to-know basis, provided that such Affiliates and Representatives are bound by confidentiality obligations no less restrictive than those contained in this Agreement. The Receiving Party shall ensure that all such individuals or entities comply fully with the terms of this Agreement.
+
+<strong>3. OBLIGATIONS OF CONFIDENTIALITY</strong>
+
+The Receiving Party acknowledges that any information related to the business relationship, including but not limited to the scope of work, deliverables, or implementation processes, is confidential in nature and shall not be disclosed or implied, directly or indirectly, to any third party without the prior written consent of the Disclosing Party;
+The Receiving Party further acknowledge that it shall;
+  a) Maintain the confidentiality of all Confidential Information using the same degree of care as it uses to protect its own confidential information, but in no event less than a reasonable standard of care;
+  b) Use the Confidential Information solely for the business purpose and not for any other purpose, commercial or otherwise;
+  c) Not disclose, publish, or otherwise reveal any Confidential Information to any third party, except to its employees, agents, or consultants who have a legitimate need to know such information solely for the Purpose, and only to the extent necessary;
+  d) Ensure that any such employees, agents, or consultants to whom Confidential Information is disclosed are informed of its confidential nature and are contractually bound by confidentiality obligations no less restrictive than those contained in this Agreement.
+
+<strong>4. STANDARD OF CARE</strong>
+
+The Receiving Party agrees to protect the confidentiality of the Disclosing Party’s Confidential Information using the same degree of care it employs to safeguard its own confidential or proprietary information of a similar nature, but in no event less than a reasonable degree of care.
+The Receiving Party acknowledges the sensitive and proprietary nature of the Confidential Information and agrees to take all reasonable steps, at its own cost, to prevent any unauthorized use, disclosure, or dissemination of such information by its Representatives. This includes, but is not limited to, ensuring that all Representatives are properly informed of and bound by confidentiality obligations that are no less restrictive than those set forth in this Agreement.
+
+<strong>5. RETURN OF CONFIDENTIAL INFORMATION</strong>
+
+  a) Upon the written request of the Disclosing Party, the Receiving Party shall promptly return or destroy all Confidential Information in its possession or control, including, without limitation, all copies, summaries, analyses, compilations, studies, or other documents prepared by the Receiving Party or its Representatives that contain, reflect, or are derived from any Confidential Information.
+  b) Upon completion of such return or destruction, the Receiving Party shall provide a written certification to the Disclosing Party confirming that all such Confidential Information, including any materials containing or derived from it, has been returned or destroyed and is no longer retained in any form by the Receiving Party or its Representatives.
+
+<strong>6. COMPELLED DISCLOSURE</strong>
+
+If the Receiving Party is required by applicable law, regulation, or order of a court or other competent authority to disclose any Confidential Information, it may do so, provided that (to the extent legally permissible) it gives the Disclosing Party prior written notice of such requirement to allow the Disclosing Party a reasonable opportunity to seek a protective order or other appropriate remedy. The Receiving Party shall cooperate, with the Disclosing Party, in any such efforts to limit or prevent the disclosure. Any disclosure made pursuant to this clause shall be limited strictly to the extent required by law.
+
+<strong>7. NO LICENSE</strong>
+
+Nothing in this Agreement shall be construed as granting, by implication, estoppel, or otherwise, any license or right to the Receiving Party to use any Confidential Information, or any trademark, patent, copyright, trade secret, or other intellectual property right of the Disclosing Party. All Confidential Information shall remain the sole and exclusive property of the Disclosing Party, and no rights, title, or interest in or to such information is transferred or granted to the Receiving Party under this Agreement.
+The Receiving Party further agrees that it shall not use the name, trademark, trade name, logo, domain name, design, or any other identifier of the Disclosing Party in any form of advertising, publicity, corporate communication, or product labeling—whether currently existing or developed in the future—without the prior written consent of the Disclosing Party.
+
+<strong>8. INDEMNITY</strong>
+
+The Receiving Party agrees to indemnify, defend, and hold harmless the other Party, its Affiliates, and their respective officers, directors, employees, and agents from and against any and all losses, damages, liabilities, costs, and expenses, including reasonable attorneys’ fees and court costs, that arise out of or relate to any breach of this Agreement by the Receiving Party or its Representatives. This obligation of confidentiality shall survive the termination or expiration of this Agreement and shall continue for as long as the Confidential Information remains a secret and has not entered the public domain through no fault of the Receiving Party.
+
+<strong>9. LIMITATION OF LIABILITY</strong>
+
+To the fullest extent permitted by applicable law, neither Party shall be liable to the other for any indirect, incidental, special, punitive, or consequential damages, including but not limited to loss of profits, business opportunities, or data, arising out of or related to this Agreement, even if advised of the possibility of such damages. This limitation shall not apply to damages arising from a Party’s gross negligence, willful misconduct, fraud, or breach of confidentiality obligations.
+
+<strong>10. TERM AND TERMINATION</strong>
+
+This Agreement shall come into effect on the date of execution by both Parties and shall remain in force until the completion of the Project, unless terminated earlier in accordance with the terms herein.
+Either Party (“Terminating Party”) shall have the right to terminate this Agreement by providing thirty (30) days’ prior written notice to the other Party (“Non Terminating Party”) in the event of any material breach of the terms or conditions set forth in this Agreement by the Non Terminating Party. Such termination shall be without prejudice to any other rights or remedies available to the Terminating Party under applicable law or equity.
+Upon termination or expiration of this Agreement, all Confidential Information shall be returned in accordance with Clause 5 of this Agreement, and the obligations of confidentiality shall continue to survive as specified in this Agreement.
+
+<strong>14. SEVERABILITY</strong>
+
+If any provision of this Agreement is found invalid or unenforceable, the remainder shall remain in full force. Any such provision shall be replaced with one that reflects the original intent and is valid.
+
+<strong>17. GOVERNING LAW AND DISPUTE RESOLUTION</strong>
+
+This Agreement shall be governed by the laws of India. Both parties irrevocably submit to the exclusive jurisdiction of the Courts in Mumbai, for any action or proceeding regarding this Agreement. Any dispute or claim arising out of or in connection herewith, or the breach, termination or invalidity thereof, shall be settled by arbitration in accordance with the provisions of Indian Arbitration & Conciliation Act, 1996, including any amendments thereof. The arbitration tribunal shall be composed of a sole arbitrator, and such arbitrator shall be appointed mutually by the Parties. The place of arbitration shall be Mumbai, Maharashtra and the arbitration proceedings shall take place in the English language.
+
+<strong>18. ENTIRE AGREEMENT AND AMENDMENTS</strong>
+
+This Agreement constitutes the entire agreement between the Parties concerning its subject matter and supersedes all prior discussions. Any amendments must be in writing and signed by both Parties.
+
+<strong>IN WITNESS WHEREOF</strong>, the Parties have caused this Agreement to be executed by their duly authorized representatives on the date first written above.
+
+SIGNED for and on behalf of                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+{{CA FIRM NAME}}
+
+
+
+{{CA NAME}}
+{{MEMBER REG NO}}
+{{PARTNER/PROPRIETOR}}
+Date:{{Date}}
+
+
+
+SIGNED for and on behalf of
+{{Company Name B}}
+Name:
+Designation:
+Date: 
+
+
+

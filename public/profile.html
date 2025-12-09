@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NDA Generator - Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+  <header id="mainHeader" class="bg-white shadow-sm fixed top-0 left-0 right-0 z-20">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.svg" alt="logo" class="h-8 w-auto">
+        <span class="text-lg font-semibold text-gray-800">NDA Generator</span>
+      </div>
+      <nav class="flex items-center gap-3">
+        <div id="userInfo" class="hidden items-center gap-3 text-sm text-gray-700"></div>
+        <a id="loginBtn" href="/auth/google" class="text-sm px-3 py-1 rounded border border-transparent text-blue-600 hover:bg-blue-50">Login</a>
+        <a id="getStartedBtn" href="/auth/google" class="bg-blue-600 text-white text-sm px-4 py-2 rounded hover:bg-blue-700">Get Started</a>
+        <a id="logoutBtn" href="/logout" class="hidden bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-20 pb-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card: Agreement Details -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="font-bold text-gray-800 mb-4">Agreement Details</h3>
+          <hr class="mb-4">
+          <label class="text-sm text-gray-600">Date:</label>
+          <input id="dateInput" type="date" value="" class="mt-2 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-300">
+          <div class="mt-6 h-36 bg-transparent"></div>
+        </div>
+
+        <!-- Card: Company A Details -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="font-bold text-gray-800 mb-4">Company A Details</h3>
+          <div class="flex gap-3 mb-4">
+            <button id="selectCompanyA" class="bg-blue-500 text-white px-3 py-2 rounded text-sm">Select from List</button>
+            <button id="clearCompanyA" class="bg-gray-500 text-white px-3 py-2 rounded text-sm">Clear Selection</button>
+          </div>
+
+          <label class="text-xs text-gray-500">Company Name A:</label>
+          <input id="companyAName" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter Company Name A">
+
+          <label class="text-xs text-gray-500">LLPIN:</label>
+          <input id="llpin" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter LLPIN">
+
+          <label class="text-xs text-gray-500">Address A:</label>
+          <input id="addressA" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter Address A">
+        </div>
+
+        <!-- NEW CARD: CA Details (AUTOMATICALLY FILLED) -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="font-bold text-gray-800 mb-4">CA Details (from Company A)</h3>
+          <label class="text-xs text-gray-500">CA Firm Name:</label>
+          <input id="caFirmName" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm bg-gray-100" readonly>
+
+          <label class="text-xs text-gray-500">CA Name:</label>
+          <input id="caName" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm bg-gray-100" readonly>
+
+          <label class="text-xs text-gray-500">Member Reg No:</label>
+          <input id="memberRegNo" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm bg-gray-100" readonly>
+
+          <label class="text-xs text-gray-500">Partner/Proprietor:</label>
+          <input id="partnerProprietor" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm bg-gray-100" readonly>
+        </div>
+
+        <!-- Card: Company B Details -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="font-bold text-gray-800 mb-4">Company B Details</h3>
+          <label class="text-xs text-gray-500">Company Name B:</label>
+          <input id="companyBName" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter Company Name B">
+
+          <label class="text-xs text-gray-500">CIN:</label>
+          <input id="cin" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter CIN">
+
+          <label class="text-xs text-gray-500">Address B:</label>
+          <input id="addressB" class="mt-2 mb-3 w-full border rounded px-3 py-2 text-sm" placeholder="Enter Address B">
+        </div>
+
+        <!-- Card: Actions -->
+        <div class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center">
+          <h3 class="font-bold text-gray-800 mb-4">Actions</h3>
+          <div class="w-full flex flex-col items-center gap-4">
+            <button id="saveBtn" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded text-sm">Save Agreement Details</button>
+            <button id="viewLastBtn" class="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded text-sm">View Last Saved Entry</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Company Selection Modal -->
+  <div id="companyModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
+      <h3 class="text-xl font-bold text-gray-800 mb-4">Select Company A</h3>
+      <div id="companyList" class="max-h-60 overflow-y-auto border border-gray-300 rounded-md p-2 mb-4">
+        <!-- Company items will be loaded here by JavaScript -->
+        <p class="text-gray-500 text-center">Loading companies...</p>
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button id="addNewCompanyBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Add New Company</button>
+        <button id="closeCompanyModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Client logic: fetch profile-data and company list
+    let loggedInEmail = null;
+
+    async function loadProfile() {
+      try {
+        const res = await fetch('/profile-data');
+        if (!res.ok) throw new Error('No session');
+        const json = await res.json();
+        const name = json.user.displayName || '';
+        const email = json.user.email || '';
+        loggedInEmail = email;
+
+        const userInfo = document.getElementById('userInfo');
+        userInfo.innerHTML = '<div class="text-right"><div class="font-semibold text-sm text-gray-800">'+ name +'</div><div class="text-xs text-gray-500">'+ email +'</div></div>';
+        userInfo.classList.remove('hidden');
+
+        document.getElementById('logoutBtn').classList.remove('hidden');
+        document.getElementById('loginBtn').classList.add('hidden');
+        document.getElementById('getStartedBtn').classList.add('hidden');
+      } catch (e) {
+        // not logged in; leave login/get started visible
+      }
+    }
+
+    async function getCompanies() {
+      try {
+        const res = await fetch('/get-companies');
+        if (!res.ok) return [];
+        return await res.json();
+      } catch {
+        return [];
+      }
+    }
+
+    // Clear Company A selection
+    document.getElementById('clearCompanyA').addEventListener('click', () => {
+      document.getElementById('companyAName').value = '';
+      document.getElementById('addressA').value = '';
+      document.getElementById('llpin').value = '';
+      // Clear CA details as well
+      document.getElementById('caFirmName').value = '';
+      document.getElementById('caName').value = '';
+      document.getElementById('memberRegNo').value = '';
+      document.getElementById('partnerProprietor').value = '';
+    });
+
+    // Company selection modal logic
+    const companyModal = document.getElementById('companyModal');
+    const companyList = document.getElementById('companyList');
+    const closeCompanyModal = document.getElementById('closeCompanyModal');
+
+    // Function to load and display companies in the modal
+    async function renderCompanyList() {
+      companyList.innerHTML = '<p class="text-gray-500 text-center">Loading companies...</p>'; // Reset loading text
+
+      const companies = await getCompanies();
+      companyList.innerHTML = ''; // Clear loading text
+
+      if (companies.length === 0) {
+        companyList.innerHTML = '<p class="text-gray-500 text-center">No companies defined yet. Add one!</p>';
+      } else {
+        companies.forEach((company, index) => {
+          const companyItem = document.createElement('div');
+          companyItem.className = 'p-2 hover:bg-blue-100 cursor-pointer border-b last:border-b-0';
+          companyItem.textContent = company.CompanyName || 'Unnamed Company';
+          companyItem.dataset.index = index; // Store index to easily retrieve full data
+
+          companyItem.addEventListener('click', () => {
+            // Fill Company A Details
+            document.getElementById('companyAName').value = company.CompanyName || '';
+            document.getElementById('addressA').value = company.Address || '';
+            document.getElementById('llpin').value = company.RegNo || '';
+            
+            // Fill CA Details
+            document.getElementById('caFirmName').value = company.CAFirmName || '';
+            document.getElementById('caName').value = company.CAName || '';
+            document.getElementById('memberRegNo').value = company.MemberRegNo || '';
+            document.getElementById('partnerProprietor').value = company.PartnerProprietor || '';
+
+            companyModal.classList.add('hidden'); // Close modal on selection
+          });
+          companyList.appendChild(companyItem);
+        });
+      }
+    }
+
+    document.getElementById('selectCompanyA').addEventListener('click', async () => {
+      companyModal.classList.remove('hidden');
+      renderCompanyList(); // Call the new function to load and display the list
+    });
+
+    closeCompanyModal.addEventListener('click', () => {
+      companyModal.classList.add('hidden');
+    });
+
+    // Add New Company button logic
+    document.getElementById('addNewCompanyBtn').addEventListener('click', async () => {
+      const companyName = prompt('Enter New Company Name:');
+      if (!companyName) return alert('Company Name is required.');
+
+      const regNo = prompt('Enter Registration Number (LLPIN):');
+      const address = prompt('Enter Address:');
+      const caFirmName = prompt('Enter CA Firm Name:');
+      const caName = prompt('Enter CA Name:');
+      const memberRegNo = prompt('Enter Member Registration Number:');
+      const partnerProprietor = prompt('Enter Partner/Proprietor status:');
+
+
+      try {
+        const res = await fetch('/add-company', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            CompanyName: companyName,
+            RegNo: regNo,
+            Address: address,
+            CAFirmName: caFirmName,
+            CAName: caName,
+            MemberRegNo: memberRegNo,
+            PartnerProprietor: partnerProprietor
+          })
+        });
+        const j = await res.json();
+        if (res.ok) {
+          alert('Company added successfully!');
+          renderCompanyList(); // Refresh the list in the modal
+        } else {
+          alert('Failed to add company: ' + (j.message || 'unknown error'));
+        }
+      } catch (err) {
+        alert('Error adding company: ' + err.message);
+      }
+    });
+
+    // Close modal if clicking outside
+    companyModal.addEventListener('click', (e) => {
+      if (e.target === companyModal) {
+        companyModal.classList.add('hidden');
+      }
+    });
+
+    // Save handler - posts to /api/save-text with expected keys
+    document.getElementById('saveBtn').addEventListener('click', async () => {
+      if (!loggedInEmail) {
+        alert('Please login first.');
+        return;
+      }
+      const payload = {
+        "User Email": loggedInEmail,
+        "Date": document.getElementById('dateInput').value || '',
+        "Company Name A": document.getElementById('companyAName').value || '',
+        "LLPIN": document.getElementById('llpin').value || '',
+        "Address A": document.getElementById('addressA').value || '',
+        "Company Name B": document.getElementById('companyBName').value || '',
+        "CIN": document.getElementById('cin').value || '',
+        "Address B": document.getElementById('addressB').value || '',
+        // CA fields are now automatically filled from company A selection
+        "CA Firm Name": document.getElementById('caFirmName').value || '',
+        "CA Name": document.getElementById('caName').value || '',
+        "Member Reg No": document.getElementById('memberRegNo').value || '',
+        "Partner/Proprietor": document.getElementById('partnerProprietor').value || ''
+      };
+
+      try {
+        const res = await fetch('/api/save-text', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const j = await res.json();
+        if (res.ok) {
+          alert('Saved successfully.');
+        } else {
+          alert('Save failed: ' + (j.message || 'unknown error'));
+        }
+      } catch (err) {
+        alert('Error saving: ' + err.message);
+      }
+    });
+
+    // View last saved - now redirects to display.html
+    document.getElementById('viewLastBtn').addEventListener('click', () => {
+      window.location.href = '/display.html';
+    });
+
+    // init
+    loadProfile();
+  </script>
+</body>
+</html>
