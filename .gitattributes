@@ -1,0 +1,13 @@
+﻿# Normalize text files and let Git handle line endings
+* text=auto
+
+# Shell scripts keep LF
+*.sh text eol=lf
+
+# Common binary formats
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
